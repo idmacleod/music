@@ -50,4 +50,11 @@ class Album
         return albums_array.map {|album_hash| Album.new(album_hash)}
     end
 
+    def self.find(id)
+        sql = "SELECT * FROM albums WHERE id = $1"
+        values = [id]
+        album_hash = SqlRunner.run(sql, values).first()
+        return Album.new(album_hash) if album_hash
+      end
+
 end
